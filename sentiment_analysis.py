@@ -3,7 +3,7 @@ import ast
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 
-sia = SentimentIntensityAnalyzer()
+sia = SentimentIntensityAnalyzer()  # create the sentiment analyzer
 
 
 def analyze_sentiment(content: str) -> float:
@@ -13,20 +13,19 @@ def analyze_sentiment(content: str) -> float:
     """
 
     polarity_sum = 0
-    sentences = nltk.sent_tokenize(content)
+    sentences = nltk.sent_tokenize(content)  # breaks up the content into list of = sentences.
     for sentence in sentences:
-        score = sia.polarity_scores(sentence)
-        polarity_sum += score['compound']
-        # print(score)
-    overall_score = (polarity_sum / len(sentences))
+        score = sia.polarity_scores(sentence)  # get the polarity score of the sentence
+        polarity_sum += score['compound']  # add the score to the sum
+    overall_score = (polarity_sum / len(sentences))  # calculate the overall score of the article
     return overall_score
 
 
-def month_sentiment() -> list[float]:
+def month_sentiment() -> dict[str: (float, int)]:
     """
-    Returns a list of sentiment scores.
+    Returns a dictionary of the file name / month to the score and the number of articles.
     """
-    scores = []
+    scores = {}
     path_of_directory = 'processed_articles'
     articles_in_folder = os.listdir(path_of_directory)  # list of all the processed articles
     for file_name in articles_in_folder:
@@ -36,11 +35,16 @@ def month_sentiment() -> list[float]:
         sentiment_sum = 0
         content_counter = 0
         for date in articles:
+            if articles[date] != []:  # ensure that there are articles in that day
+                for content in articles[date]:  # loop through all the articles in that day
+                    sentiment_sum += analyze_sentiment(content)  # analyze the sentiment of the article
+                    content_counter += 1  # increase the content counter
 
-            if articles[date] != []:
-                sentiment_sum += analyze_sentiment(articles[date][0])
-                content_counter += 1
-        total_sentiment = round(((sentiment_sum / content_counter) * 100), 2)
-        scores.append(total_sentiment)
+        if content_counter == 0:  # check if there are articles in the month
+            total_sentiment = 0
+        else:
+            total_sentiment = round(((sentiment_sum / content_counter) * 100),
+                                    2)  # calculate the average sentiment for the month
+        scores[articles_file.name] = (total_sentiment,
+                                      content_counter)  # assign the dictionary with the file name of the key and the value being a tuple of total sentiment and the content count
     return scores
-
