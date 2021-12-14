@@ -10,7 +10,8 @@ MONTH = ['january', 'february', 'march', 'april', 'may', 'june', 'july',
 
 
 def process_articles() -> None:
-    """Process the articles in the articles directory, returning a json file mapping each date to a list containing
+    """Process the articles in the articles directory, returning a json
+    file mapping each date to a list containing
     the text of each article that was published on that day.
     """
     for month in MONTH:
@@ -39,3 +40,13 @@ def process_articles() -> None:
         with open(f'processed_articles/{month}_processed_articles.txt', 'w') as outfile:
             json.dump(master, outfile)
 
+
+if __name__ == '__main__':
+    import python_ta
+
+    python_ta.check_all(config={
+        'extra-imports': ['json', 'newspaper'],
+        'allowed-io': ['process_articles'],
+        'max-line-length': 100,
+        'disable': ['R1705', 'C0200']
+    })
