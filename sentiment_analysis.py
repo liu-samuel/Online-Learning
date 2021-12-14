@@ -7,7 +7,8 @@ import ast
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 
-nltk.download('vader_lexicon')  # download vader lexicon nltk package
+nltk.download(['vader_lexicon', 'punkt'
+               ])  # download vader lexicon nltk package
 
 sia = SentimentIntensityAnalyzer()  # create the sentiment analyzer
 
@@ -59,3 +60,27 @@ def month_sentiment() -> dict[str: (float, int)]:
         # assign the dictionary with the file name of the key
         # and the value being a tuple of total sentiment and the content count
     return scores
+
+
+if __name__ == '__main__':
+    # When you are ready to check your work with python_ta, uncomment the following lines.
+    # (Delete the "#" and space before each line.)
+    # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
+    # Leave this code uncommented when you submit your files.
+    #
+    import python_ta
+
+    python_ta.check_all(config={
+        'extra-imports': ['python_ta.contracts'],
+        'allowed-io': ['run_example_break'],
+        'max-line-length': 100,
+        'disable': ['R1705', 'C0200']
+    })
+
+    import python_ta.contracts
+
+    python_ta.contracts.check_all_contracts()
+
+    import doctest
+
+    doctest.testmod()
