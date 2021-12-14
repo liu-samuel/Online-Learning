@@ -25,21 +25,6 @@ MONTH_TO_STRING = {
     12: 'december'
 }
 
-queries = [
-    'online learning',
-    'online school',
-    'zoom university',
-    'zoom',
-    'google classroom',
-    'google meet',
-    'video conference',
-    'video conferencing'
-]
-main_queries = [
-    'online learning',
-    'online school'
-]
-
 
 class BadResponseError(Exception):
     """Exception raised when NYT api returns a response that is not 'OK'."""
