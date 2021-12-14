@@ -71,6 +71,7 @@ def create_sentiment_graph() -> None:
         )
     )
 
+    # shows the sentiment graph
     fig.show()
 
 
@@ -141,6 +142,7 @@ def create_popularity_graph() -> None:
         )
     )
 
+    # shows the popularity graph
     fig.show()
 
 
