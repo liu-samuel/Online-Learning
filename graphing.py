@@ -5,8 +5,8 @@ import plotly.graph_objects as go
 import sentiment_analysis as sentiment
 
 
-def create_graphs() -> None:
-    """Create graphs for sentiment and popularity scores during 2020 about online learning
+def create_sentiment_graph() -> None:
+    """Create graphs for sentiment scores during 2020 about online learning
     """
     # calls the sentiment analysis function that was created
     scores = sentiment.month_sentiment()
@@ -40,21 +40,6 @@ def create_graphs() -> None:
     s_november_score = november[0]
     s_december_score = december[0]
 
-    # assigns the popularity scores
-
-    p_january_score = january[1]
-    p_february_score = february[1]
-    p_march_score = march[1]
-    p_april_score = april[1]
-    p_may_score = may[1]
-    p_june_score = june[1]
-    p_july_score = july[1]
-    p_august_score = august[1]
-    p_september_score = september[1]
-    p_october_score = october[1]
-    p_november_score = november[1]
-    p_december_score = december[1]
-
     # x values for each graph
     month_in_2020 = ['January', 'February', 'March', 'April', 'May', 'June',
                      'July', 'August', 'September', 'October', 'November', 'December']
@@ -63,10 +48,6 @@ def create_graphs() -> None:
     sentiment_score = [s_january_score, s_february_score, s_march_score, s_april_score,
                        s_may_score, s_june_score, s_july_score, s_august_score, s_september_score,
                        s_october_score, s_november_score, s_december_score]
-
-    popularity_score = [p_january_score, p_february_score, p_march_score, p_april_score,
-                        p_may_score, p_june_score, p_july_score, p_august_score, p_september_score,
-                        p_october_score, p_november_score, p_december_score]
 
     # create the sentiment Graph
     fig = go.Figure()
@@ -91,6 +72,50 @@ def create_graphs() -> None:
     )
 
     fig.show()
+
+
+def create_popularity_graph() -> None:
+    """Create graphs for popularity scores during 2020 about online learning
+    """
+    # calls the sentiment analysis function that was created
+    scores = sentiment.month_sentiment()
+
+    # assigns the output of the sentiment function to each month
+    january = scores['processed_articles/january_processed_articles.txt']
+    february = scores['processed_articles/february_processed_articles.txt']
+    march = scores['processed_articles/march_processed_articles.txt']
+    april = scores['processed_articles/april_processed_articles.txt']
+    may = scores['processed_articles/may_processed_articles.txt']
+    june = scores['processed_articles/june_processed_articles.txt']
+    july = scores['processed_articles/july_processed_articles.txt']
+    august = scores['processed_articles/august_processed_articles.txt']
+    september = scores['processed_articles/september_processed_articles.txt']
+    october = scores['processed_articles/october_processed_articles.txt']
+    november = scores['processed_articles/november_processed_articles.txt']
+    december = scores['processed_articles/december_processed_articles.txt']
+
+    # assigns the popularity scores
+
+    p_january_score = january[1]
+    p_february_score = february[1]
+    p_march_score = march[1]
+    p_april_score = april[1]
+    p_may_score = may[1]
+    p_june_score = june[1]
+    p_july_score = july[1]
+    p_august_score = august[1]
+    p_september_score = september[1]
+    p_october_score = october[1]
+    p_november_score = november[1]
+    p_december_score = december[1]
+
+    # x values for each graph
+    month_in_2020 = ['January', 'February', 'March', 'April', 'May', 'June',
+                     'July', 'August', 'September', 'October', 'November', 'December']
+
+    popularity_score = [p_january_score, p_february_score, p_march_score, p_april_score,
+                        p_may_score, p_june_score, p_july_score, p_august_score, p_september_score,
+                        p_october_score, p_november_score, p_december_score]
 
     # create the popularity Graph
 
@@ -134,6 +159,6 @@ if __name__ == '__main__':
         'extra-imports': ['plotly.graph_objects', 'sentiment_analysis'],
         'max-line-length': 100,
         'max-args': 6,
-        'max-locals': 25,
+        'max-locals': 30,
         'disable': ['R1705'],
     })
