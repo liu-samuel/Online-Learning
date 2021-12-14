@@ -36,29 +36,28 @@ def month_sentiment() -> dict[str: (float, int)]:
     articles_in_folder = os.listdir(path_of_directory)  # list of all the processed articles
     for file_name in articles_in_folder:
         if file_name[-3:] == 'txt':  # ensure that we are only looping through text files
-            articles_file = open(path_of_directory + '/' + file_name, 'r')
-            articles = ast.literal_eval(
-                articles_file.read())  # read the text inside the file and convert it to a dict
-            sentiment_sum = 0
-            content_counter = 0
-            for date in articles:
-                if articles[date] != []:  # ensure that there are articles in that day
-                    for content in articles[date]:
-                        # loop through all the articles in that day
-                        sentiment_sum += analyze_sentiment(content)
-                        # analyze the sentiment of the article
-                        content_counter += 1  # increase the content counter
+            with open(path_of_directory + '/' + file_name, 'r') as articles_file:
+                articles = ast.literal_eval(
+                    articles_file.read())  # read the text inside the file and convert it to a dict
+                sentiment_sum = 0
+                content_counter = 0
+                for date in articles:
+                    if articles[date] != []:  # ensure that there are articles in that day
+                        for content in articles[date]:
+                            # loop through all the articles in that day
+                            sentiment_sum += analyze_sentiment(content)
+                            # analyze the sentiment of the article
+                            content_counter += 1  # increase the content counter
 
-            if content_counter == 0:  # check if there are articles in the month
-                total_sentiment = 0
-            else:
-                total_sentiment = round(((sentiment_sum / content_counter) * 100),
-                                        2)  # calculate the average sentiment for the month
-            scores[articles_file.name] = (total_sentiment,
-                                          content_counter)
-            # assign the dictionary with the file name of the key
-            # and the value being a tuple of total sentiment and the content count
-            articles_file.close()
+                if content_counter == 0:  # check if there are articles in the month
+                    total_sentiment = 0
+                else:
+                    total_sentiment = round(((sentiment_sum / content_counter) * 100),
+                                            2)  # calculate the average sentiment for the month
+                scores[articles_file.name] = (total_sentiment,
+                                              content_counter)
+                # assign the dictionary with the file name of the key
+                # and the value being a tuple of total sentiment and the content count
     return scores
 
 
