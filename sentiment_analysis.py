@@ -10,8 +10,6 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 nltk.download(['vader_lexicon', 'punkt'
                ])  # download vader lexicon nltk package
 
-sia = SentimentIntensityAnalyzer()  # create the sentiment analyzer
-
 
 def analyze_sentiment(content: str) -> float:
     """
@@ -19,7 +17,7 @@ def analyze_sentiment(content: str) -> float:
     returns an overall sentiment score using the VADER model.
     Returns a float rounded to 3 decimals ranging from -1, to 1
     """
-
+    sia = SentimentIntensityAnalyzer()  # create the sentiment analyzer
     polarity_sum = 0
     sentences = nltk.sent_tokenize(content)  # breaks up the content into list of = sentences.
     for sentence in sentences:  # loop through each sentence
@@ -60,5 +58,16 @@ def month_sentiment() -> dict[str: (float, int)]:
                                           content_counter)
             # assign the dictionary with the file name of the key
             # and the value being a tuple of total sentiment and the content count
+            articles_file.close()
     return scores
 
+
+if __name__ == '__main__':
+    import python_ta
+
+    python_ta.check_all(config={
+        'extra-imports': ['os', 'ast', 'nltk', 'nltk.sentiment'],
+        'allowed-io': ['month_sentiment'],
+        'max-line-length': 100,
+        'disable': ['R1705', 'C0200']
+    })
