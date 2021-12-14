@@ -1,5 +1,10 @@
 https://send.utoronto.ca/
-Claim ID: WGFSSjiBw5jETWQF
-Claim Passcode: RaR7BjHrNtFB6ZJv
+Claim ID: SdJKEPXWR5ECBWba
+Claim Passcode: XmFPCi2v4g3mk4nS
 Please unzip and store both files in the same directory as the Python files.
-Alternatively, you can feel free to run the main.py file where it will gather and create these .txt article files.
+There are also the two graphs generated. 
+One is the popularity graph, named popularity_graph.PNG
+And another graph shows the sentiment scores, named sentiment_graph.PNG
+
+Alternatively, you can feel free to run the main.py file where it will gather and create these .txt article files, as well as plot 
+the data onto the graph.
