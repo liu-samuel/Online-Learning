@@ -1,0 +1,5 @@
+https://send.utoronto.ca/
+Claim ID: WGFSSjiBw5jETWQF
+Claim Passcode: RaR7BjHrNtFB6ZJv
+Please unzip and store both files in the same directory as the Python files.
+Alternatively, you can feel free to run the main.py file where it will gather and create these .txt article files.
