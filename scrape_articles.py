@@ -91,16 +91,16 @@ def generate_date(year: int, month: int, day: int) -> tuple[str, str]:
     return (begin, end)
 
 
-def main() -> None:
+def scrape_articles() -> None:
     """Driver code to actually retrieve the specified articles.
     """
-    MONTH = 1
-    while MONTH < 13:
+    month = 1
+    while month < 13:
         master_articles = {}
 
-        for i in range(1, DAYS_PER_MONTH[MONTH] + 1):
+        for i in range(1, DAYS_PER_MONTH[month] + 1):
             page = 1
-            begin_date, end_date = generate_date(YEAR, MONTH, i)
+            begin_date, end_date = generate_date(YEAR, month, i)
             url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?' \
                   'q=online learning' \
                   f'&api-key={API_KEY}' \
@@ -138,11 +138,7 @@ def main() -> None:
             print(f'Got {len(articles)} articles for {begin_date}')
             sleep(6)
 
-        with open(f'articles/{MONTH_TO_STRING[MONTH]}_articles.txt', 'w') as outfile:
+        with open(f'articles/{MONTH_TO_STRING[month]}_articles.txt', 'w') as outfile:
             outfile.truncate(0)
             json.dump(master_articles, outfile)
-        MONTH += 1
-
-
-if __name__ == '__main__':
-    main()
+        month += 1
