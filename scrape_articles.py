@@ -26,10 +26,6 @@ MONTH_TO_STRING = {
 }
 
 
-class BadResponseError(Exception):
-    """Exception raised when NYT api returns a response that is not 'OK'."""
-
-
 def generate_date(year: int, month: int, day: int) -> tuple[str, str]:
     """Return a date string representing the year, month, and day in the format 'YYYYMMDD'
     >>> generate_date(2020, 3, 4)
@@ -94,12 +90,6 @@ def scrape_articles() -> None:
                   f'&page={page}'
 
             response = requests.get(url).json()
-            try:
-                if response['status'] != 'OK':
-                    raise BadResponseError
-            except BadResponseError:
-                print(f'Bad Response: {response}')
-                quit()
 
             articles = []
             for article in response['response']['docs']:
