@@ -27,7 +27,8 @@ MONTH_TO_STRING = {
 
 
 def generate_date(year: int, month: int, day: int) -> tuple[str, str]:
-    """Return a date string representing the year, month, and day in the format 'YYYYMMDD'
+    """Return a tuple containing strings representing the year, month, and day in the format 'YYYYMMDD'
+    of the start date and end date corresponding to that day.
     >>> generate_date(2020, 3, 4)
     ('20200304', '20200305')
     >>> generate_date(2020, 2, 29)
