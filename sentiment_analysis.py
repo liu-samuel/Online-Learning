@@ -1,20 +1,27 @@
+"""
+File that contains functions to perform sentiment analysis
+"""
+# imports
 import os
 import ast
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
+
+nltk.download('vader_lexicon')  # download vader lexicon nltk package
 
 sia = SentimentIntensityAnalyzer()  # create the sentiment analyzer
 
 
 def analyze_sentiment(content: str) -> float:
     """
-    Function that takes in content (usually paragraphs) and returns an overall sentiment score using the VADER model.
+    Function that takes in content (usually paragraphs) and
+    returns an overall sentiment score using the VADER model.
     Returns a float rounded to 3 decimals ranging from -1, to 1
     """
 
     polarity_sum = 0
     sentences = nltk.sent_tokenize(content)  # breaks up the content into list of = sentences.
-    for sentence in sentences:
+    for sentence in sentences:  # loop through each sentence
         score = sia.polarity_scores(sentence)  # get the polarity score of the sentence
         polarity_sum += score['compound']  # add the score to the sum
     overall_score = (polarity_sum / len(sentences))  # calculate the overall score of the article
@@ -36,8 +43,10 @@ def month_sentiment() -> dict[str: (float, int)]:
         content_counter = 0
         for date in articles:
             if articles[date] != []:  # ensure that there are articles in that day
-                for content in articles[date]:  # loop through all the articles in that day
-                    sentiment_sum += analyze_sentiment(content)  # analyze the sentiment of the article
+                for content in articles[date]:
+                    # loop through all the articles in that day
+                    sentiment_sum += analyze_sentiment(content)
+                    # analyze the sentiment of the article
                     content_counter += 1  # increase the content counter
 
         if content_counter == 0:  # check if there are articles in the month
@@ -46,5 +55,7 @@ def month_sentiment() -> dict[str: (float, int)]:
             total_sentiment = round(((sentiment_sum / content_counter) * 100),
                                     2)  # calculate the average sentiment for the month
         scores[articles_file.name] = (total_sentiment,
-                                      content_counter)  # assign the dictionary with the file name of the key and the value being a tuple of total sentiment and the content count
+                                      content_counter)
+        # assign the dictionary with the file name of the key
+        # and the value being a tuple of total sentiment and the content count
     return scores
